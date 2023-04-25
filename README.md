@@ -2,7 +2,7 @@
 
 🤖Ask questions to your local text files in natural language🤖
 
-💪 Built with LangChain
+💪 Built with [LangChain](https://github.com/hwchase17/langchain), Based on [Notion Question-Answering](https://github.com/hwchase17/notion-qa)
 
 🌲 Environment Setup
 
