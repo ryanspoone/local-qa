@@ -1,0 +1,5 @@
+.DS_Store
+.env
+docs.index
+faiss_store.pkl
+context/*
