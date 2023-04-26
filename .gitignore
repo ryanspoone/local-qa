@@ -1,5 +1,29 @@
+# System files
 .DS_Store
+
+# Environment variables
 .env
+
+# Precomputed FAISS index file for text search
 docs.index
+
+# Pickled FAISS store with document embeddings and metadata
 faiss_store.pkl
+
+# Ignore everything in the context folder
 context/*
+
+# Add the following line if you want to unignore a specific file in the context folder
+!context/example_file.txt
+
+# Python cache files and directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook cache files
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
