@@ -1,76 +1,86 @@
 # Local Files Question-Answering
 
-🤖Ask questions to your local text files in natural language🤖
+🤖 Ask questions in natural language to your local text files 🤖
 
 💪 Built with [LangChain](https://github.com/hwchase17/langchain), Based on [Notion Question-Answering](https://github.com/hwchase17/notion-qa)
 
-🌲 Environment Setup
+## 🌲 Environment Setup
 
-In order to set your environment up to run the code here, first install all requirements:
+1. Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Then create a .env file in the root directory and set your OpenAI API key there (if you do not have one, get one [here](https://beta.openai.com/signup/)):
+2. Create a .env file in the root directory and set your OpenAI API key there. If you don't have one, get one [here](https://beta.openai.com/signup/):
 
 ```bash
 OPENAI_API_KEY=....
 ```
 
-📄 What is in here?
+## 📚 What's Inside?
 
 - Example text files for context
-- Python script to query local text files with a question
-- Code to deploy on Streamlit
-- Instructions for ingesting your own dataset
+- Python script to ask questions based on local text files
+- Streamlit deployment code
+- Instructions for using your own dataset
 
-📊 Example Data
+## 📊 Example Data
 
-This repo uses example text files as context. You can replace them with your own text files to query your specific data.
+Example text files are provided as context. Replace them with your own text files to query your specific data.
 
-💬 Ask a question
+## 💬 Ask a question
 
-In order to ask a question, you need to run the Streamlit app:
+1. Run the Streamlit app:
 
 ```bash
 streamlit run main.py
 ```
 
-This will launch the Streamlit interface where you can ask questions and get answers based on the ingested text files.
+1. The Streamlit interface will open, where you can ask questions and get answers based on the ingested text files.
 
-🚀 Code to deploy on Streamlit
+## 🚀 Deploy on Streamlit
 
-The code to run the Streamlit app is in `main.py`. Run it using the command mentioned above to start the chat interface.
+The main.py file contains the code to run the Streamlit app. Use the command mentioned above to start the chat interface.
 
-🧑 Instructions for ingesting your own dataset
+## 🧑 Use Your Own Dataset
 
-1. Place your text files in the `context` folder.
-2. Run the following command to ingest the data:
+1. Add your text files to the context folder.
+1. Update config.json to include the appropriate file types and extensions for your dataset.
+1. Ingest the data:
 
 ```bash
 python ingest.py
 ```
 
-Now you're done! You can ask questions to your chatbot based on your own dataset:
+1. Run the Streamlit app to ask questions based on your dataset:
 
 ```bash
 streamlit run main.py
 ```
 
+## 🌍 Using OpenAI as a Backup
 
-### File Tree
+If the local files don't have the answer to a specific question, the code will automatically use the OpenAI API as a backup to provide a relevant response. Make sure you have set your OpenAI API key in the .env file as mentioned in the Environment Setup section.
 
-```
+## File Tree
+
+```text
 📦local-qa
- ┣ 📂context
+ ┣ 📂context                  # Directory containing the text files to be ingested
  ┃ ┣ 📜file1.txt
  ┃ ┣ 📜file2.txt
  ┃ ┣ 📜file3.txt
  ┃ ┗ 📜file4.txt
- ┣ 📜.env.example
- ┣ 📜.gitignore
- ┣ 📜ingest.py
- ┣ 📜main.py
- ┗ 📜requirements.txt
- ```
+ ┣ 📜.env                     # Environment variables for the project (keep private)
+ ┣ 📜.env.example             # Example environment variables file
+ ┣ 📂.vscode                  # (optional) VSCode settings for the project
+ ┃ └── ...
+ ┣ 📜README.md                # Project documentation
+ ┣ 📜config.json              # Configuration file for file types and extensions
+ ┣ 📜docs.index               # Precomputed FAISS index file for text search
+ ┣ 📜faiss_store.pkl          # Pickled FAISS store with document embeddings and metadata
+ ┣ 📜ingest.py                # Script to ingest text files and create embeddings
+ ┣ 📜main.py                  # Script to run the Q&A bot using Streamlit
+ ┗ 📜requirements.txt         # List of required Python packages for the project
+```
