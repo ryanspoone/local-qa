@@ -6,6 +6,7 @@ import faiss
 from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 import pickle
+import numpy as np
 
 # Load the environment variables from the .env file
 load_dotenv()
@@ -46,8 +47,12 @@ for i, d in enumerate(data):
 # Create an OpenAI embeddings object with the API key
 embeddings = OpenAIEmbeddings(openai_api_key=os.environ["OPENAI_API_KEY"])
 
-# Create a vector store from the documents and save it to disk
+# Compute embeddings for the documents
+doc_embeddings = np.vstack([embeddings.embed_query(doc) for doc in docs])
+
+# Create a vector store from the precomputed embeddings and save it to disk
 store = FAISS.from_texts(docs, embeddings, metadatas=metadatas)
+store.embeddings = doc_embeddings
 faiss.write_index(store.index, "docs.index")
 store.index = None
 with open("faiss_store.pkl", "wb") as f:
