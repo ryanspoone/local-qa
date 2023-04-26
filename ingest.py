@@ -40,7 +40,7 @@ ps = read_files(file_path)
 data = []
 sources = []
 for p in ps:
-    with open(p) as f:
+    with open(p, encoding="utf-8") as f:
         data.append(f.read())
     sources.append(p)
 
