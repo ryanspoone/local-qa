@@ -4,6 +4,8 @@
 
 💪 Built with [LangChain](https://github.com/hwchase17/langchain), Based on [Notion Question-Answering](https://github.com/hwchase17/notion-qa)
 
+![screenshot](screenshot.png)
+
 ## 🌲 Environment Setup
 
 1. Install the required packages:
