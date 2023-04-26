@@ -7,14 +7,23 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 import pickle
 import numpy as np
+import json
 
 # Load the environment variables from the .env file
 load_dotenv()
 
+# Load configuration from the JSON file
+with open("config.json") as config_file:
+    config = json.load(config_file)
+supported_extensions = config["supported_extensions"]
 
-# Function to read text files from a given directory
+
+# Function to read text files with supported extensions from a given directory
 def read_files(file_path):
-    return list(Path(file_path).glob("**/*.txt"))
+    file_list = []
+    for ext in supported_extensions:
+        file_list.extend(list(Path(file_path).glob(f"**/*{ext}")))
+    return file_list
 
 
 # Get the absolute path of the main.py file
