@@ -1,4 +1,17 @@
-"""Python file to serve as the frontend"""
+"""
+main.py
+
+This script is the frontend of the local QA bot application. It uses Streamlit to create a
+user interface where users can enter questions and receive answers. The application
+searches for relevant answers within a local document store built using FAISS and
+OpenAI's language models. If a satisfactory local answer cannot be found, it queries
+the OpenAI API for a better response.
+
+Usage:
+
+1. Make sure you have ingested the documents and created the FAISS index using ingest.py.
+2. Run this script to launch the frontend application with `streamlit run main.py`.
+"""
 import os
 import streamlit as st
 from dotenv import load_dotenv
@@ -24,10 +37,17 @@ with open("faiss_store.pkl", "rb") as f:
 
 store.index = index
 
+# Set the temperature for the OpenAI language model. The temperature value ranges from 0 to 1.
+# A higher temperature leads to more random and diverse answers from the model, sometimes at the cost of coherence.
+# A lower temperature leads to more deterministic and focused answers from the model, sometimes at the cost of creativity.
+# If you find the bot's answers are too random or diverse, try decreasing the temperature.
+# If you find the bot's answers are too deterministic or repetitive, try increasing the temperature.
+temperature = 0.3
+
 # Create an instance of the VectorDBQAWithSourcesChain with the specified language model and vector store
 chain = VectorDBQAWithSourcesChain.from_llm(
     # Initialize the OpenAI language model with the specified model name and temperature
-    llm=OpenAI(model_name="text-davinci-003", temperature=0.5),
+    llm=OpenAI(model_name="text-davinci-003", temperature=temperature),
     # Provide the vector store, which contains the document embeddings and information
     vectorstore=store,
 )
@@ -38,7 +58,7 @@ def get_openai_answer(question: str) -> str:
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt=f"{question}\n\nAnswer:",
-        temperature=0.5,
+        temperature=temperature,
         max_tokens=50,
         top_p=1,
         frequency_penalty=0,

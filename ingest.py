@@ -1,3 +1,16 @@
+"""
+ingest.py
+
+This script ingests a set of text files, computes their embeddings using OpenAI's language model,
+and stores the embeddings and associated metadata in a FAISS index and a vector store.
+
+This process enables efficient similarity-based search and retrieval of relevant documents for
+question-answering purposes in the local QA bot.
+
+Usage:
+1. Place your text files in the 'context' folder.
+2. Run this script to preprocess the text files, compute embeddings, and create the FAISS index.
+"""
 import os
 from dotenv import load_dotenv
 from pathlib import Path
