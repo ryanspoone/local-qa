@@ -9,7 +9,7 @@ Thumbs.db
 docs.index
 
 # Pickled FAISS store with document embeddings and metadata
-faiss_store.pkl
+*.pkl
 
 # Ignore everything in the context folder
 context/*
